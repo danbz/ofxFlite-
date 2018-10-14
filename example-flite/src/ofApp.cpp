@@ -97,16 +97,15 @@ void ofApp::keyPressed(int key){
             break;
             
         case OF_KEY_UP:
-            if (voiceNum < numOfVoices){
+            if (voiceNum < numOfVoices){ // choose different voice - restart loop and text to hear the change
             voiceNum +=1;
             flite.setVoice(voiceNum);
             }
-            cout << "voicelist " <<  ofToString( flite_voice_list) << " voicenum " << voiceNum << endl;
-        
+           
             break;
             
         case OF_KEY_DOWN:
-            if (voiceNum >0){
+            if (voiceNum >0){ // choose different voice - restart loop and text to hear the change
             voiceNum -=1;
             flite.setVoice(voiceNum);
                 
