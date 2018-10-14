@@ -18,11 +18,18 @@ void ofApp::setup(){
     
     flite.setup(sr,bs,"Hello World.",speed,vol);
     sound.getDeviceList();
-    sound.setDeviceID(1);
+    sound.setDeviceID(1); // alter this to suit your hardware, sound output device
     sound.setup(this, 2, 0, sr, bs, 4);
     ofSetFrameRate(30);
     ofSetWindowTitle("ofxFlite~");
+    b_loop = true; // set speak to looping , press space to toggle on and off
+    voiceNum = 0;
+    numOfVoices = 4;
     
+    cst_voice *defaultVoice;
+    defaultVoice = register_cmu_us_kal();
+    cout << ofToString( flite_voice_list) << endl;
+    flite_text_to_speech("hello i'm in setup", defaultVoice, "play");
 }
 
 //--------------------------------------------------------------
@@ -81,8 +88,32 @@ void ofApp::keyPressed(int key){
             break;
             
         case '4':
-            flite.setText("the time is " + ofToString( ofGetHours() ) + " hours " + ofToString(ofGetMinutes() ) + " minutes, and the day is the " + ofToString( ofGetDay() ) + " of the " + ofToString( ofGetMonth()) );
+            flite.setText("the time is " + ofToString( ofGetHours() ) + " hours " + ofToString( ofGetMinutes() ) + " minutes, and the day is the " + ofToString( ofGetDay() ) + " of the " + ofToString( ofGetMonth()) );
             break;
+            
+        case ' ':
+            b_loop = !b_loop;
+            flite.setLoop(b_loop); // toggle speech looping on and off
+            break;
+            
+        case OF_KEY_UP:
+            if (voiceNum < numOfVoices){
+            voiceNum +=1;
+            flite.setVoice(voiceNum);
+            }
+            cout << "voicelist " <<  ofToString( flite_voice_list) << " voicenum " << voiceNum << endl;
+        
+            break;
+            
+        case OF_KEY_DOWN:
+            if (voiceNum >0){
+            voiceNum -=1;
+            flite.setVoice(voiceNum);
+                
+            }
+            break;
+            
+            
     }
 }
 

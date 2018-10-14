@@ -24,5 +24,7 @@ public:
     ofxFlite flite;
     ofSoundStream sound;
     
+    bool b_loop;
+    int voiceNum, numOfVoices;
 };
    
